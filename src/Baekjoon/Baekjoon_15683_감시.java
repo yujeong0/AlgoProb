@@ -1,11 +1,13 @@
 //package Baekjoon;
 //
+//import java.util.Arrays;
 //import java.util.Scanner;
 //
 //public class Baekjoon_15683_감시 {
 //	static int N, M;
 //	static String[][] grid;
 //	static int ANSWER = Integer.MAX_VALUE;
+//	static String[][] copy;
 //	
 //	public static void main(String[] args) {
 //		Scanner sc = new Scanner(System.in);
@@ -58,13 +60,32 @@
 //		
 //	}
 //	
-//	private static void CCTV1(int startx, int starty) {
-//		for (int i = 0; i < N; i++) {
-//			for (int j = 0; j < M; j++) {
-//				
-//				
+//	private static void CCTV1(int startx, int starty, String[][] arr) {
+////		copyGrid();
+//		int[][] dir = { {0, 1}, {0, -1}, {-1, 0}, {1, 0} };
+//		for (int i = startx; i < N; i++) {
+//			for (int j = starty; j < M; j++) {
+//				for (int d = 0; d < dir.length; d++) {
+//					int x = startx;
+//					int y = starty;
+//					while(true) {
+//						x = startx + dir[d][0];
+//						y = starty + dir[d][1];
+//						if(isInBound(x, y) && !arr[x][y].equals("6")) {
+//							if(arr[x][y].equals("0")) {
+//								arr[x][y] = "#";
+//							}
+//						}
+//						else break;
+//					}
+//					
+//					
+//				}
 //			}
 //		}
+//		
+//		
+//		
 //	}
 //	private static void CCTV2(int startx, int starty) {
 //		
@@ -79,4 +100,16 @@
 //		
 //	}
 //	
+//	private static boolean isInBound(int x, int y) {
+//		if(x >= N || x < 0 || y < 0 || y >= M)
+//			return false;
+//		
+//		return true;
+//	}
+//	
+//	private static void copyGrid() {
+//		for (int i = 0; i < N; i++) {
+//			copy[i] = Arrays.copyOf(grid[i], M);
+//		}
+//	}
 //}
