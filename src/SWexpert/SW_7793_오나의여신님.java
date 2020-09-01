@@ -105,9 +105,9 @@ public class SW_7793_오나의여신님 {
 	}
 	
 	private static boolean isInBound(int x, int y) {
-	if(x >= N || x < 0 || y < 0 || y >= M)
-		return false;
-	
-	return true;
-}
+		if(x >= N || x < 0 || y < 0 || y >= M)
+			return false;
+		
+		return true;
+	}
 }
