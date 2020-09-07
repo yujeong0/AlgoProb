@@ -106,7 +106,7 @@ import java.util.StringTokenizer;
 #4 164
 #5 712
  */
-public class SW_5653_모의역량_줄기세포배양 {
+public class SW_모의역량_5653_줄기세포배양 {
 
 	static class Cell {
 		int x, y;
