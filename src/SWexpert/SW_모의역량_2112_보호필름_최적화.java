@@ -103,7 +103,7 @@ import java.util.StringTokenizer;
 #10 4
  */
 
-public class SW_모의역량_2112_보호필름_v2 {
+public class SW_모의역량_2112_보호필름_최적화 {
 
 	static int ANSWER, D, W, K;
 	static int[][] arr = new int[14][21];
