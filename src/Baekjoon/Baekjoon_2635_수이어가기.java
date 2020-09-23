@@ -1,8 +1,6 @@
 package Baekjoon;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +11,7 @@ public class Baekjoon_2635_수이어가기 {
 		
 		int N = sc.nextInt();
 		
-		int maxCount = 0, count, prev, cur;
+		int maxCount = 0, prev, cur;
 		List<Integer> list = new ArrayList<>();
 		List<Integer> maxList = null;
 		for (int i = N; i >= 1; i--) {
