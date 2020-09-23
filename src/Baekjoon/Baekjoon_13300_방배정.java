@@ -6,7 +6,6 @@ import java.util.StringTokenizer;
 
 public class Baekjoon_13300_방배정 {
 
-	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
@@ -39,6 +38,5 @@ public class Baekjoon_13300_방배정 {
 		System.out.println(totalRoom);
 		
 	}	// end of main
-	
 	
 }
