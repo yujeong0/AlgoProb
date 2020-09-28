@@ -2,57 +2,38 @@ package SWexpert.모의역량;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class SW_5650_핀볼게임 {
 
 	static int N;
-	static int[][] map = new int[110][110];
+	static int[][] map = new int[101][101];
 	static int[][] dir = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
 	static int MAX;
 	
 	public static void main(String[] args) throws Exception {
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		
-//		int T = Integer.parseInt(br.readLine().trim());
-//		StringTokenizer st;
-		
-		Scanner sc = new Scanner(System.in);
-		int T = sc.nextInt();
+		int T = Integer.parseInt(br.readLine().trim());
+		StringTokenizer st;
 		for (int testcase = 1; testcase <= T; testcase++) {
-			N = sc.nextInt();
-			for (int i = 1; i <= N; i++) {
-				for (int j = 1; j <= N; j++) {
-					map[i][j] = sc.nextInt();
+			st = new StringTokenizer(br.readLine(), " ");
+			N = Integer.parseInt(st.nextToken());
+			for (int i = 0; i < N; i++) {
+				st = new StringTokenizer(br.readLine(), " ");
+				for (int j = 0; j < N; j++) {
+					map[i][j] = Integer.parseInt(st.nextToken());
 				}
-			}
-//			st = new StringTokenizer(br.readLine(), " ");
-//			N = Integer.parseInt(st.nextToken());
-//			for (int i = 0; i < N; i++) {
-//				st = new StringTokenizer(br.readLine(), " ");
-//				for (int j = 0; j < N; j++) {
-//					map[i][j] = Integer.parseInt(st.nextToken());
-//				}
-//			}
-//			printMap();
-			
-			for (int i = 0; i <= N+1; i++) {
-				map[0][i] = 5;
-				map[N][i] = 5;
-				map[i][0] = 5;
-				map[i][N] = 5;
 			}
 			
 			MAX = 0;
 			// 모든 점을 출발지로 시도
 			int score;
-			for (int i = 1; i <= N; i++) {
-				for (int j = 1; j <= N; j++) {
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
 					if(map[i][j] == 0) {
 						for (int d = 0; d < 4; d++) {	// 모든 출발지를 모든 방향으로 시도
-//							System.out.println("(" + i +", " + j +") d = " + d);
 							score = game(i, j, d);
 							if(MAX < score) {
 								MAX = score;
@@ -66,7 +47,7 @@ public class SW_5650_핀볼게임 {
 		}	// end of tc
 		System.out.println(sb.toString());
 		
-		sc.close();
+		
 	}// end of main
 	
 	private static int game(int x, int y, int d) {
@@ -159,9 +140,10 @@ public class SW_5650_핀볼게임 {
 	}
 	
 	private static int[] whereIsWarm(int x, int y, int num) {	// 웜홀번호로 다른 웜홀 찾기
-		for (int i = 1; i <= N; i++) {
-			for (int j = 1; j <= N; j++) {
-				if(i != x && j != y && map[i][j] == num) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if(i == x && j == y) continue;
+				if(map[i][j] == num) {
 					return new int[] {i, j};
 				}
 			}
@@ -175,15 +157,5 @@ public class SW_5650_핀볼게임 {
 			return false;
 		
 		return true;
-	}
-	
-	private static void printMap() {
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				System.out.print(map[i][j] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
 	}
 }
