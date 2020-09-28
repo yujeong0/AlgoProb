@@ -5,20 +5,31 @@ import java.util.Iterator;
 import java.util.List;
 
 public class test {
-	
-	public static void main(String[] args) {
-		List<Integer> list = new ArrayList<>();
-		list.add(1);
-		list.add(2);
-		list.add(3);
-
+	static class Number {
+		int n;
+		Number(int n) {
+			this.n = n;
+		}
+		@Override
+		public String toString() {
+			return "Number [n=" + n + "]";
+		}
 		
-		Iterator<Integer> iter = list.iterator();
+	}
+	public static void main(String[] args) {
+		List<Number> list = new ArrayList<>();
+		list.add(new Number(1));
+		list.add(new Number(2));
+		list.add(new Number(3));
+
+		int target = -1;
+		Iterator<Number> iter = list.iterator();
 		int i = 0;
 		while(iter.hasNext()) {
-			int n = iter.next();
-			if(i == 1)
-				iter.remove();
+			Number num = iter.next();
+
+			num.n = 0;
+			
 			i++;
 		}
 		
