@@ -1,11 +1,11 @@
-package Baekjoon;
+package Baekjoon.graph;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Baekjoon_1922_네트워크연결 {	// 프림
+public class BOJ_1922_네트워크연결 {	// 프림
 
 	static int N, M, ANSWER = 0;
 	static boolean[] visited;
