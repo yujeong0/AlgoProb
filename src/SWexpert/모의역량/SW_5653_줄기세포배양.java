@@ -105,7 +105,7 @@ public class SW_5653_줄기세포배양 {
 						y = cell.y + dir[d][1];
 						
 						// 동시에 번식한 세포가 없거나 동시에 번식한 세포가 있고 내 생명력이 더 강하면 해당 셀은 내거!
-						if(grid[x][y] == null || (grid[x][y] != null && grid[x][y].state == grid[x][y].life * -1 && grid[x][y].life < cell.life) )	{
+						if(grid[x][y] == null || (grid[x][y] != null && pos.contains(new int[] {x,y}) && grid[x][y].life < cell.life) )	{
 							grid[x][y] = new Cell(cell.life);
 							pos.add(new int[] {x,y});	// 변화가 있는 위치 넣어놓기
 //							q.offer(new Cell(x, y, cell.life)); -> 이놈때문에 테케좀이상하게 나옴
