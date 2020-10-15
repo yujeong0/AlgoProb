@@ -6,6 +6,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
+/*
+119 라인에서 x >=1 로 안하고 x > 1해서 한참 찾았다 ㅠ 
+ 
+ */
 public class SW_5656_벽돌깨기 {
 
 	static int N, W, H;
