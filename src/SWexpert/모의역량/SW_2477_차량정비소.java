@@ -19,12 +19,6 @@ public class SW_2477_차량정비소 {
 			this.number = number;
 			this.arriveTime = arriveTime;
 		}
-		
-		@Override
-		public String toString() {
-			return "Customer [number=" + number + ", receptionNum=" + receptionNum + ", repairNum=" + repairNum
-					+ ", arriveTime=" + arriveTime + "]";
-		}
 
 		@Override
 		public int compareTo(Customer o) {
@@ -79,8 +73,6 @@ public class SW_2477_차량정비소 {
 				customers[i] = new Customer(i, arrive);
 			} // end of input
 
-//			System.out.println(Arrays.toString(customers));
-			
 			customers[0] = new Customer(0, -1);	// 0은 안쓰는데 sort 떄문에 넣었음
 			Arrays.sort(customers, new Comparator<Customer>() {
 				@Override
@@ -103,7 +95,6 @@ public class SW_2477_차량정비소 {
 		
 		waitRepairQ.clear();
 		while(true) {
-//			System.out.println("들어옴");
 			if(waitReception.size() == 0 && waitRepair.size() == 0 && customers[K].arriveTime < time) {
 				boolean isEnd = true;
 				for (int i = 0; i < N; i++) {
@@ -135,7 +126,6 @@ public class SW_2477_차량정비소 {
 				if(reception[i][0] != 0) {	// 해당 접수 창구에 손님이 있을 경우
 					if(reception[i][1] == 1) {	// 처리시간 종료
 						waitRepairQ.offer(customers[reception[i][0]]);
-//						waitRepair.offer(reception[i][0]);
 						reception[i][0] = 0;
 					}
 					else {
