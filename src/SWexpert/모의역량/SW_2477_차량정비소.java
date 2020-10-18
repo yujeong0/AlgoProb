@@ -41,7 +41,7 @@ public class SW_2477_차량정비소 {
 	static Customer[] customers;	// 고객 번호와 방문한 창구 번호, 도착시간 저장
 	static PriorityQueue<Integer> waitReception = new PriorityQueue<>();
 	static Queue<Integer> waitRepair = new LinkedList<>();
-	static PriorityQueue<Customer> waitRepairQ = new PriorityQueue<>();
+	static PriorityQueue<Customer> waitRepairQ = new PriorityQueue<>();	// waitRepair 큐에 가기전에 동시 손님들 우선순위 처리하기 위한 큐
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -81,7 +81,7 @@ public class SW_2477_차량정비소 {
 
 //			System.out.println(Arrays.toString(customers));
 			
-			customers[0] = new Customer(0, -1);	// 0은 안쓰는데 sort 떄문에 그냥 넣었음
+			customers[0] = new Customer(0, -1);	// 0은 안쓰는데 sort 떄문에 넣었음
 			Arrays.sort(customers, new Comparator<Customer>() {
 				@Override
 				public int compare(Customer o1, Customer o2) {
@@ -107,14 +107,14 @@ public class SW_2477_차량정비소 {
 			if(waitReception.size() == 0 && waitRepair.size() == 0 && customers[K].arriveTime < time) {
 				boolean isEnd = true;
 				for (int i = 0; i < N; i++) {
-					if(reception[i][0] != 0) {
+					if(reception[i][0] > 0) {
 						isEnd = false;
 						break;
 					}
 				}
 				if(isEnd) {
 					for (int i = 0; i < M; i++) {
-						if(repair[i][0] != 0) {
+						if(repair[i][0] > 0) {
 							isEnd = false;
 							break;
 						}
@@ -131,10 +131,9 @@ public class SW_2477_차량정비소 {
 				else break;
 			}
 			
-			for (int i = 0; i < N; i++) {	// 접수 창구에 새로운 손님 받거나 원래 손님 처리시간 줄이기
+			for (int i = 0; i < N; i++) {	// 접수 창구 원래 손님 처리시간 줄이기
 				if(reception[i][0] != 0) {	// 해당 접수 창구에 손님이 있을 경우
-					if(reception[i][1] <= 2) {	// 처리시간 종료
-						
+					if(reception[i][1] == 1) {	// 처리시간 종료
 						waitRepairQ.offer(customers[reception[i][0]]);
 //						waitRepair.offer(reception[i][0]);
 						reception[i][0] = 0;
@@ -143,7 +142,10 @@ public class SW_2477_차량정비소 {
 						reception[i][1]--;
 					}
 				}
-				else {	// 손님이 없을 때 새로운 손님 받기
+			}	
+			
+			for (int i = 0; i < N; i++) {	// 접수 창구에 새로운 손님 받을 수 있으면 받기
+				if(reception[i][0] == 0) {	// 손님이 없을 때 새로운 손님 받기
 					if(waitReception.size() > 0) {
 						reception[i][0] = waitReception.poll();
 						reception[i][1] = receptionTime[i];	// 초기 시간은 해당 창구의 처리시간
@@ -162,14 +164,17 @@ public class SW_2477_차량정비소 {
 			
 			for (int i = 0; i < M; i++) {	
 				if(repair[i][0] != 0) {	// 해당 접수 창구에 손님이 있을 경우
-					if(repair[i][1] <= 2) {	// 처리시간 종료
+					if(repair[i][1] == 1) {	// 처리시간 종료
 						repair[i][0] = 0;
 					}
 					else {
 						repair[i][1]--;
 					}
 				}
-				else {	// 손님이 없을 때 새로운 손님 받기
+			}
+			
+			for (int i = 0; i < M; i++) {	
+				if(repair[i][0] == 0) {	// 손님이 없을 때 새로운 손님 받기
 					if(waitRepair.size() > 0) {
 						repair[i][0] = waitRepair.poll();
 						repair[i][1] = repairTime[i];	// 초기 시간은 해당 창구의 처리시간
