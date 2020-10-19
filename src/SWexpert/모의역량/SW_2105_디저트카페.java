@@ -14,6 +14,7 @@ public class SW_2105_디저트카페 {
 	static int[][] dir = { {1, 1}, {1, -1}, {-1, -1}, {-1, 1} };
 	static int MAX, count;
 	static int startx, starty;
+	static List<Integer> list = new ArrayList<>();
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,11 +35,12 @@ public class SW_2105_디저트카페 {
 			MAX = -1;
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
+					list.clear();
 					for (int k = 0; k < N; k++) {	// visited 초기화
 						for (int k2 = 0; k2 < N; k2++) 
 							visited[k][k2] = false;
 					}
-					List<Integer> list = new ArrayList<>();
+					
 					list.add(grid[i][j]);
 					visited[i][j] = true;
 					
@@ -75,13 +77,10 @@ public class SW_2105_디저트카페 {
 				if(!visited[x][y] && !list.contains(grid[x][y])) {
 					visited[x][y] = true;
 					
-					List<Integer> newList = new ArrayList<>();
-					for(int num : list) {
-						newList.add(num);
-					}
-					newList.add(grid[x][y]);
-					dfs(x, y, direction, newList, count);
-
+					list.add(grid[x][y]);
+					dfs(x, y, direction, list, count);
+					list.remove(list.size()-1);
+					
 					visited[x][y] = false;
 				}
 			}
