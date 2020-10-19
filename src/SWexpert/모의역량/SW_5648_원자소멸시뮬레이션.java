@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+// 시간초과
 public class SW_5648_원자소멸시뮬레이션 {
 	static class Atom {
 		double x, y; 

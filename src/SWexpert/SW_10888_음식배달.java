@@ -6,6 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/*
+2
+4
+-1000 0 3 5
+1000 0 2 3
+0 1000 1 7
+0 -1000 0 9
+4
+-1 1 3 3
+0 1 1 1
+0 0 2 2
+-1 0 0 9
+
+#1 22
+#2 44
+#3 74
+ */
 public class SW_10888_음식배달 {
 	static class Position {
 		int x, y;
