@@ -35,28 +35,21 @@ public class SW_2117_홈방범서비스 {
 			}
 			
 			solve();
-			
 			sb.append("#").append(testcase).append(" ").append(MAX).append("\n");
 		}
-		
 		System.out.println(sb.toString());
 		
 	} // main
 	
 	private static void solve() {
-		
 		int cost;
 		MAX = 1;
-		for (int k = 2; k <= N; k++) {	// 서비스영역을 N 까지 다 해보기~
+		for (int k = 2; k <= N+1; k++) {	// 서비스영역을 N 까지 다 해보기~
 			cost = k*k + (k-1)*(k-1);
 			K = k;
 			
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
-					
-					if(k == 3 && i == 3 && j == 3)
-						System.out.println();
-					
 					houseCnt = 0;
 					if(map[i][j] == 1) houseCnt++;
 					visited[i][j] = true;
@@ -78,20 +71,17 @@ public class SW_2117_홈방범서비스 {
 	} // solve()
 
 	private static void dfs(int startx, int starty) {
-//		if(getDistance(curX, curY, startx, starty) <= K) return;
-		
 		int x, y;
 		for (int d = 0; d < 4; d++) {
 			x = startx + dir[d][0];
 			y = starty + dir[d][1];
 			
-			if(x >= 0 && x < N && y < N && y >= 0 && !visited[x][y] && Math.abs(curX-x)+Math.abs(curY-y) <= K) {
+			if(x >= 0 && x < N && y < N && y >= 0 && !visited[x][y] && Math.abs(curX-x)+Math.abs(curY-y) <= K-1) {
 				if(map[x][y] == 1) houseCnt++;
 				visited[x][y] = true;
 				dfs(x, y);
 			}
 		}
-		
 	}
 	
 } // class

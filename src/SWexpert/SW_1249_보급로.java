@@ -57,7 +57,6 @@ public class SW_1249_보급로 {
 	
 	private static void bfs() {
 		PriorityQueue<Position> q = new PriorityQueue<>();
-		
 		q.offer(new Position(0, 0, 0));
 		visited[0][0] = true;
 		
