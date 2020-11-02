@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class SW_1953_수영장ver2 {
+public class SW_1952_수영장ver2 {
 	
 	static int[] ticketCost = new int[4];	// 이용권별 요금
 	static int[] swimDays = new int[13];	// 1~12 월 이용계획
