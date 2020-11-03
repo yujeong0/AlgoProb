@@ -107,53 +107,11 @@ public class SW_1953_탈주범검거 {
                        break;
 					}
 					
-					
-//					switch(map[p.x][p.y]) {
-//					case 1:
-//						if(d == 0 && (map[x][y] == 3 || map[x][y] == 4 || map[x][y] == 7)) continue;
-//						if(d == 1 && (map[x][y] == 2 || map[x][y] == 4 || map[x][y] == 5)) continue;
-//						if(d == 2 && (map[x][y] == 3 || map[x][y] == 5 || map[x][y] == 6)) continue;
-//						if(d == 3 && (map[x][y] == 2 || map[x][y] == 6 || map[x][y] == 7)) continue;
-//						break;
-//					case 2:
-//						if(d == 0 && (map[x][y] == 3 || map[x][y] == 4 || map[x][y] == 7)) continue;
-//						if(d == 2 && (map[x][y] == 3 || map[x][y] == 5 || map[x][y] == 6)) continue;
-//						break;
-//					case 3:
-//						if(d == 1 && (map[x][y] == 2 || map[x][y] == 4 || map[x][y] == 5)) continue;
-//						if(d == 3 && (map[x][y] == 2 || map[x][y] == 6 || map[x][y] == 7)) continue;
-//						break;
-//					case 4:
-//						if(d == 0 && (map[x][y] == 3 || map[x][y] == 4 ||map[x][y] == 7)) continue;
-//						if(d == 1 && (map[x][y] == 2 || map[x][y] == 4 || map[x][y] == 5)) continue;
-//						break;
-//					case 5:
-//						if(d == 1 && (map[x][y] == 2 || map[x][y] == 5 || map[x][y] == 4)) continue;
-//						if(d == 2 && (map[x][y] == 3 || map[x][y] == 5 || map[x][y] == 6)) continue;
-//						break;
-//					case 6:
-//						if(d == 2 && (map[x][y] == 3 || map[x][y] == 6 || map[x][y] == 5)) continue;
-//						if(d == 3 && (map[x][y] == 2 || map[x][y] == 6 || map[x][y] == 7)) continue;
-//						break;
-//					case 7:
-//						if(d == 0 && (map[x][y] == 3 || map[x][y] == 7 || map[x][y] == 4)) continue;
-//						if(d == 3 && (map[x][y] == 2 || map[x][y] == 7 || map[x][y] == 6)) continue;
-//						break;
-//					}
-					
 					q.offer(new Position(x, y, p.depth+1));
 					visited[x][y] = true;
 				}
 			}
 		}
-		
-//		for (int i = 0; i < N; i++) {
-//			for (int j = 0; j < M; j++) {
-//				System.out.print(visited[i][j] + " ");
-//			}
-//			System.out.println();
-//		}
-//		System.out.println();
 		
 		return totalCnt;
 		
@@ -165,6 +123,5 @@ public class SW_1953_탈주범검거 {
 			
 		return true;
 	}
-	
 	
 } // end of class
