@@ -2,11 +2,13 @@ package SWexpert.Professional;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+/*
+ * 테케는 맞는데 시간초과남...
+ */
 public class SW_Professional_5643_키순서 {
 	
 	static Set<Integer>[] big, small;
