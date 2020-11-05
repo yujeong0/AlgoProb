@@ -2,11 +2,9 @@ package SWexpert.Professional;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class SW_Professional_5643_키순서_풀이1 {
+public class SW_Professional_5643_키순서_풀이2_DFS {
 	
 	static int N, M, adj[][];
 	static int gtCnt, ltCnt;
@@ -32,8 +30,8 @@ public class SW_Professional_5643_키순서_풀이1 {
 			int answer = 0;
 			for (int k = 1; k <= N; k++) {
 				gtCnt = ltCnt = 0;
-				gtBFS(k);
-				ltBFS(k);
+				gtDFS(k, new boolean[N+1]);
+				ltDFS(k, new boolean[N+1]);
 				if(gtCnt + ltCnt == N-1) answer++;
 			}
 
@@ -43,38 +41,24 @@ public class SW_Professional_5643_키순서_풀이1 {
 		System.out.println(sb.toString());
 	} // main
 	
-	private static void gtBFS(int start) {	// 인접행렬을 행증가 시키면서 나보다 큰 애들 찾기
-		Queue<Integer> queue = new LinkedList<>();
-		boolean[] visited = new boolean[N+1];
-		queue.offer(start);
-		visited[start] =  true;
+	private static void gtDFS(int start, boolean[] visited) {	// 인접행렬을 행증가 시키면서 나보다 큰 애들 찾기
+		visited[start] = true;
 		
-		while(!queue.isEmpty()) {
-			int k = queue.poll();
-			for (int i = 1; i <= N; i++) {
-				if(adj[k][i] == 1 && !visited[i]) {
-					queue.offer(i);
-					visited[i] = true;
-					gtCnt++;	// 나보다 큰 애들 수 세기
-				}
+		for (int i = 1; i <= N; i++) {
+			if(adj[start][i] == 1 && !visited[i]) {
+				gtCnt++;
+				gtDFS(i, visited);
 			}
 		}
 	}
 	
-	private static void ltBFS(int start) {	// 인접행렬을 열로 검사하면 나보다 작은애들 찾을 수 있다~!
-		Queue<Integer> queue = new LinkedList<>();
-		boolean[] visited = new boolean[N+1];
-		queue.offer(start);
-		visited[start] =  true;
+	private static void ltDFS(int start, boolean[] visited) {	// 인접행렬을 열로 검사하면 나보다 작은애들 찾을 수 있다~!
+		visited[start] = true;
 		
-		while(!queue.isEmpty()) {
-			int k = queue.poll();
-			for (int i = 1; i <= N; i++) {
-				if(adj[i][k] == 1 && !visited[i]) {
-					queue.offer(i);
-					visited[i] = true;
-					ltCnt++;	// 나보다 큰 애들 수 세기
-				}
+		for (int i = 1; i <= N; i++) {
+			if(adj[i][start] == 1 && !visited[i]) {
+				ltCnt++;
+				ltDFS(i, visited);
 			}
 		}
 	}

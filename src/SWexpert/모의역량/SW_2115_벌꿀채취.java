@@ -64,14 +64,6 @@ public class SW_2115_벌꿀채취 {
 			}
 		}
 		
-//		for (int i = 0; i < N; i++) {
-//			for (int j = 0; j <= N-M; j++) {
-//				System.out.print(sumValue[i][j] + " ");
-//			}
-//			System.out.println();
-//		}
-//		System.out.println();
-		
 		int MAX = 0;
 		int sum1, sum2;
 		for (int i = 0; i < N; i++) {
