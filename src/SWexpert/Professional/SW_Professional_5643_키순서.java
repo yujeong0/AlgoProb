@@ -7,13 +7,13 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 /*
- * 테케는 맞는데 시간초과남...
+ * 으악 어려웡
  */
 public class SW_Professional_5643_키순서 {
 	
-	static Set<Integer>[] big, small;
-	
+	static int[][] adj;
 	static int N, M;
+	static int cnt;
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
@@ -22,54 +22,51 @@ public class SW_Professional_5643_키순서 {
 		int T = Integer.parseInt(br.readLine());
 		for (int testcase = 1; testcase <= T; testcase++) {
 			N = Integer.parseInt(br.readLine());
-			big = new HashSet[N+1];	// 나보다 큰 애들
-			small = new HashSet[N+1];	// 나보다 작은 애들
 			M = Integer.parseInt(br.readLine());
 			
-			for (int i = 1; i <= N; i++) {
-				big[i] = new HashSet<>();
-				small[i] = new HashSet<>();
-			}
+			adj = new int[N+1][N+1];
 			
 			int a, b;
 			for (int i = 0; i < M; i++) {
 				st = new StringTokenizer(br.readLine(), " ");
-				
 				a = Integer.parseInt(st.nextToken());
 				b = Integer.parseInt(st.nextToken());
-				
-				big[a].add(b);
-				small[b].add(a);
-				
-				for (int n : small[a]) {
-					small[b].add(n);
-				}
-				for (int n : big[b]) {
-					big[a].add(n);
-				}
-				for (int n1 : small[a]) {
-					for (int n : big[a]) {
-						big[n1].add(n);
-					}
-				}
+				adj[a][b] = 1;
 			}
 
-			int cnt = 0;
+			cnt = 0;
 			for (int i = 1; i <= N; i++) {
-//				System.out.println("big " + i);
-//				System.out.println(big[i]);
-//				System.out.println();
-//				System.out.println("small " + i);
-//				System.out.println(small[i]);
-				if(big[i].size() + small[i].size() + 1 == N) {
-					cnt++;
+				for (int j = 1; j <= N; j++) {
+					boolean[] visited = new boolean[N+1];
+					dfs(1, 1, visited);
 				}
 			}
+			
+			for (int i = 1; i <= N; i++) {
+				for (int j = 1; j <= N; j++) {
+				}
+			}
+			
 			sb.append("#").append(testcase).append(" ").append(cnt).append("\n");
 		}
 		
 		System.out.println(sb.toString());
 	} // main
 	
+	private static void dfs(int start, int cur, boolean[] visited) {
+		visited[cur] = true;
+		for (int i = 1; i <= N; i++) {
+			if(start == cur || start == i || cur == i) continue;
+			
+			if(adj[start][cur] == 1 && adj[cur][i] == 1 && !visited[cur]) {
+				cnt++;
+				adj[cur][i] = 1;
+				adj[i][start] = 1;
+				dfs(start, i, visited);
+			}
+			
+		}
+		
+	}
 	
 } // class
