@@ -19,4 +19,4 @@ public class 타겟넘버 {
 		solve(numbers, cur+1, target, sum-numbers[cur]);
 	}
 	
-} // class
+}
