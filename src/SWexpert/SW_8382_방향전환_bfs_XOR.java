@@ -6,11 +6,16 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class SW_8382_방향전환_bfs {
+public class SW_8382_방향전환_bfs_XOR {
 	
 	static int x1, x2, y1, y2;
 	static final int HOR = 0;
 	static final int VER = 1;
+	
+	static int[][][] dir = {
+			{ {-1, 0},{1, 0} },	// hor : 0
+			{ {0, -1},{0, 1} }	// ver : 1
+	};
 	
 	static class Point {
 		int x, y, d, cnt;
@@ -53,33 +58,18 @@ public class SW_8382_방향전환_bfs {
 			cur = queue.poll();
 			if(cur.x == x2 && cur.y == y2) return cur.cnt;
 			
-			if(cur.d == HOR) { // 세로 이동
-				nx = cur.x;
-				ny = cur.y-1;
-				if(ny >= 0 && !visited[VER][nx][ny]) {
-					visited[VER][nx][ny] = true;
-					queue.offer(new Point(nx, ny, VER, cur.cnt+1));
-				}
-				ny = cur.y+1;
-				if(ny <= 200 && !visited[VER][nx][ny]) {
-					visited[VER][nx][ny] = true;
-					queue.offer(new Point(nx, ny, VER, cur.cnt+1));
-				}
-			} else {  // 가로 이동 
-				nx = cur.x-1;
-				ny = cur.y;
-				if(nx >= 0 && !visited[HOR][nx][ny]) {
-					visited[HOR][nx][ny] = true;
-					queue.offer(new Point(nx, ny, HOR, cur.cnt+1));
-				}
-				nx = cur.x+1;
-				if(nx <= 200 && !visited[HOR][nx][ny]) {
-					visited[HOR][nx][ny] = true;
-					queue.offer(new Point(nx, ny, HOR, cur.cnt+1));
+			int[][] d = dir[cur.d^1];	// xor 하면 hor일ㄸ ㅐ ver 되고 ver 일 떄 hor 됨
+			for (int i = 0; i < d.length; i++) {
+				nx = cur.x + d[i][0];
+				ny = cur.y + d[i][1];
+			
+				if(nx >= 0 && nx <= 200 && ny >= 0 && ny <= 200 && !visited[cur.d^1][nx][ny]) {
+					visited[cur.d^1][nx][ny] = true;
+					queue.offer(new Point(nx, ny, cur.d^1, cur.cnt+1));
 				}
 			}
 			
-		}
+		} // while
  		
 		return 0;
 	}
