@@ -14,26 +14,14 @@ public class Baekjoon_17837_새로운게임2 {
 		public Box(int color) {
 			this.color = color;
 		}
-
-		@Override
-		public String toString() {
-			return "Box [color=" + color + ", markers=" + markers.toString() + "]";
-		}
-		
 	}
+	
 	static class Marker {
-		int num, x, y, d;
+		int num, d;
 
-		public Marker(int num, int x, int y, int d) {
+		public Marker(int num, int d) {
 			this.num = num;
-			this.x = x;
-			this.y = y;
 			this.d = d;
-		}
-
-		@Override
-		public String toString() {
-			return "Marker [num=" + num + ", x=" + x + ", y=" + y + ", d=" + d + "]";
 		}
 	}
 	
@@ -48,7 +36,6 @@ public class Baekjoon_17837_새로운게임2 {
 		K = Integer.parseInt(st.nextToken());
 		
 		grid = new Box[N+1][N+1];
-		
 		for (int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine(), " ");
 			for (int j = 1; j <= N; j++) {
@@ -63,7 +50,7 @@ public class Baekjoon_17837_새로운게임2 {
 			y = Integer.parseInt(st.nextToken());
 			d = Integer.parseInt(st.nextToken());
 			
-			grid[x][y].markers.add(new Marker(i, x, y, d));
+			grid[x][y].markers.add(new Marker(i, d));
 		}
 		
 		System.out.println(solve());
@@ -71,15 +58,13 @@ public class Baekjoon_17837_새로운게임2 {
 	} // main
 
 	private static int solve() {
-		
 		int count = 0;
 		while(true) {
+			count++;
 			if(count > 1000) {
 				count = -1;
 				break;
 			}
-			
-			count++;
 			
 			for (int cur = 1; cur <= K; cur++) {
 			out:for (int i = 1; i <= N; i++) {
@@ -87,13 +72,7 @@ public class Baekjoon_17837_새로운게임2 {
 						int order = 0;
 						for(Marker m : grid[i][j].markers) {
 							if(m.num == cur) {
-								List<Marker> list = new ArrayList<>();
-								Marker tmp;
-								for (int k = order; k < grid[i][j].markers.size(); k++) {
-									tmp = grid[i][j].markers.get(k);
-									list.add(new Marker(tmp.num, tmp.x, tmp.y, tmp.d));
-								}
-								move(i, j, m.d, order, list);
+								move(i, j, m.d, order);
 								if(endGame) {
 									return count;
 								}
@@ -110,106 +89,45 @@ public class Baekjoon_17837_새로운게임2 {
 	} // solve
 
 	static boolean endGame = false;
-	private static void move(int x, int y, int d, int order, List<Marker> markers) {
-		boolean changeDir = false;
-		
+	private static void move(int x, int y, int d, int order) {
 		int nx = x+dir[d][0];
 		int ny = y+dir[d][1];
-		if(nx > N || ny > N || nx <= 0 || ny <= 0) {
-			changeDir = true;
-
-			nx -= dir[d][0];
-			ny -= dir[d][1];
+		
+		if(nx > N || ny > N || nx <= 0 || ny <= 0 || grid[nx][ny].color == 2) {
 			if(d == 1) d = 2;
 			else if(d == 2) d = 1;
 			else if(d == 3) d = 4;
 			else if(d == 4) d = 3;
 			nx = x+dir[d][0];
 			ny = y+dir[d][1];
-			markers.get(0).d = d;
+			
+			grid[x][y].markers.get(order).d = d;
+			if(nx > N || ny > N || nx <= 0 || ny <= 0 || grid[nx][ny].color == 2) {	// 한 번 더 체크
+				return;
+			}
 		}
+		
 		switch(grid[nx][ny].color) {
 		case 0:	// 흰
+			for(int i = order; i < grid[x][y].markers.size(); i++) {
+				grid[nx][ny].markers.add(grid[x][y].markers.get(i));
+			}
 			for (int i = grid[x][y].markers.size()-1; i >= order; i--) {
 				grid[x][y].markers.remove(i);
-			}
-			
-			for(Marker m : markers) {
-				m.x = nx;
-				m.y = ny;
-				grid[nx][ny].markers.add(m);
 			}
 			
 			break;
 		case 1: // 빨
+			for(int i = grid[x][y].markers.size()-1; i >= order; i--) {
+				grid[nx][ny].markers.add(grid[x][y].markers.get(i));
+			}
 			for (int i = grid[x][y].markers.size()-1; i >= order; i--) {
 				grid[x][y].markers.remove(i);
-			}
-			
-			Marker m;
-			for(int i = grid[x][y].markers.size()-1; i >= order; i--) {
-				m = markers.get(i);
-				m.x = nx;
-				m.y = ny;
-				grid[nx][ny].markers.add(m);
-			}
-			break;
-		case 2: // 파
-			if(changeDir) {
-//				grid[x][y].markers.get(order).d = d;	// 이렇게 하면 안될 것 같은디?
-				break;
-			}
-			
-			if(d == 1) d = 2;
-			else if(d == 2) d = 1;
-			else if(d == 3) d = 4;
-			else if(d == 4) d = 3;
-			int nx2 = nx+dir[d][0];
-			int ny2 = ny+dir[d][1];
-			
-			if(nx2 > N || ny2 > N || nx2 <= 0 || ny2 <= 0) {
-				grid[x][y].markers.get(order).d = d;
-				break;
-//				nx2 -= dir[d][0];
-//				ny2 -= dir[d][1];
-//				if(d == 1) d = 2;
-//				else if(d == 2) d = 1;
-//				else if(d == 3) d = 4;
-//				else if(d == 4) d = 3;
-//				nx2 = nx+dir[d][0];
-//				ny2 = ny+dir[d][1];
-			}
-			
-			if(grid[nx2][ny2].color != 2) {	// 이동하려는 칸이 파란색 아니면 원래 있던 칸 지우고 nx ny 에 add
-				for (int i = grid[x][y].markers.size()-1; i >= order; i--) {
-					grid[x][y].markers.remove(i);
-				}
-				markers.get(0).d = d;	// 방향 바꿔줘야해!!!
-				
-				if(grid[nx2][ny2].color == 0) {	// 흰
-					for(Marker mar : markers) {
-						mar.x = nx;
-						mar.y = ny;
-						grid[nx2][ny2].markers.add(mar);
-					}
-				}
-				else {	// 빨
-					Marker mar;
-					for(int i = grid[x][y].markers.size()-1; i >= order; i--) {
-						mar = markers.get(i);
-						mar.x = nx;
-						mar.y = ny;
-						grid[nx][ny].markers.add(mar);
-					}
-				}
-			}
-			else { // 이동하려는 칸이 파란색인 경우에는 그냥 가만히 있는다. 대신 방향 바꿔줘야함
-				grid[x][y].markers.get(order).d = d;
 			}
 			break;
 		}
 		
-		if(grid[nx][ny].markers.size() == K) {
+		if(grid[nx][ny].markers.size() >= 4) {
 			endGame = true;
 		}
 	} //move
