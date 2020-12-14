@@ -27,7 +27,6 @@ public class 큰수만들기 {
 
 	public static void main(String[] args) {
 		System.out.println(solution("4177252841", 4));
-		
 	} // main
 	
 }
