@@ -1,4 +1,4 @@
-package programmers.level2;
+package programmers.level3;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +47,6 @@ public class 섬연결하기 {
     	parents[bRoot] = aRoot;
     	return true;
     }
-    
     
     static int N;
     static int[] parents;
