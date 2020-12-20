@@ -27,7 +27,6 @@ public class 주식가격 {
         return answer;
     }
 	
-	
 	public static void main(String[] args) {
 		new 주식가격().service();
 	}
