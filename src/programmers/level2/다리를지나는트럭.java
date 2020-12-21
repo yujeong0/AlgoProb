@@ -22,8 +22,7 @@ public class 다리를지나는트럭 {
 		}
     	
     	Truck t;
-    	int time = 1;
-    	int curWeight = 0;
+    	int time = 1, curWeight = 0;
     	while(!waitQ.isEmpty() || !bridgeQ.isEmpty()) {
     		int size = bridgeQ.size();
     		while(size > 0) {
