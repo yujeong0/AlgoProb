@@ -3,6 +3,7 @@ package programmers.level3;
 import java.util.LinkedList;
 import java.util.Queue;
 
+//미완..
 public class 블록이동하기 {
     static class Position {
     	int x1, y1, x2, y2, cnt, dir;	// dir0은 가로, dir1은 세로
