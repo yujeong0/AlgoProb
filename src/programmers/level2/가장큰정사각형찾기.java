@@ -1,5 +1,6 @@
 package programmers.level2;
 
+//효ㅕ율성.,., 미완
 public class 가장큰정사각형찾기 {
 	public int solution(int[][] board) {
 		int MAX = 0;
