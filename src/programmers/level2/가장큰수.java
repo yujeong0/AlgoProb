@@ -24,17 +24,10 @@ public class 가장큰수 {
     	Arrays.sort(numbers, new Comparator<Integer>() {
 			@Override
 			public int compare(Integer o1, Integer o2) {
-				if(o1 == 0) return 1;
-				if(o2 == 0) return -1;
-				
 				String s1 = o1.toString();
 				String s2 = o2.toString();
 				
-				if(Integer.valueOf(s1+s2) == Integer.valueOf(s2+s1)) 
-					return 0;
-				if(Integer.valueOf(s1+s2) > Integer.valueOf(s2+s1))
-					return -1;
-				return 1;
+				return ((s2+s1).compareTo(s1+s2));
 			}
     	});
     	
@@ -49,6 +42,6 @@ public class 가장큰수 {
 		new 가장큰수().service();
 	}
     public void service() {
-    	System.out.println(solution(new int[] {10, 10, 155}));
+    	System.out.println(solution(new int[] {10, 0, 155}));
     }
 }
