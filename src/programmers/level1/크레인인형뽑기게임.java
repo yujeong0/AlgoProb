@@ -13,8 +13,8 @@ public class 크레인인형뽑기게임 {
     		for (int i2 = 0; i2 < N; i2++) {
 				if(board[i2][moves[i]-1] == 0) continue;
 				
-				list.add(board[i2][moves[i]]);
-				board[i2][moves[i]] = 0;
+				list.add(board[i2][moves[i]-1]);
+				board[i2][moves[i]-1] = 0;
 				break;
 			}
     		if(list.size() > 1 && list.get(list.size()-1) == list.get(list.size()-2)) {
