@@ -1,50 +1,50 @@
-//package programmers.level2;
-//
-//public class 삼각달팽이 {
-//    public int[] solution(int n) {
-//    	int[][] arr = new int[n][];
-//    	boolean[][] visited = new boolean[n][];
-//    	int x = 1;
-//    	for (int i = 0; i < arr.length; i++) {
-//			arr[i] = new int[x++];
-//			visited[i] = new boolean[x++];
-//		}
-//    	
-//    	int i = 0, j = 0, num = 1;
-//    	int mode = 0;
-//    	while(true) {
-//    		if(i == n) {
-//    			i--;
-//    			j++;
-//    			mode = 1;
-//    		}
-//    		else if(j == arr[i].length) {
-//    			j--;
-//    			mode = 2;
-//    			i--;
-//    		}
-//    		else if(visited[i][j]) {
-//    			switch(mode) {
-//    			case 0:
-//    				i--;
-//    				break;
-//    			case 1:
-//    				j--;
-//    				break;
-//    			case 2:
-//    				i++;
-//    				break;
-//    			}
-//    			mode = (mode+1)%3;
-//    		}
-//    		arr[i][j] = num++;
-//    		visited[i][j] = true;
-//    		if(mode == 0) i++;
-//    		else if(mode == 1) j++;
-//    		else if(mode == 2) i--;
-//    	}
-//    	
-//        int[] answer = {};
-//        return answer;
-//    }
-//}
+package programmers.level2;
+
+import java.util.Arrays;
+
+public class 삼각달팽이 {
+    public int[] solution(int n) {
+        int[][] arr = new int[n][];
+        for (int i = 0; i < n; i++) {
+			arr[i] = new int[i+1];
+		}
+        
+        int[][] dir = { {1, 0}, {0, 1}, {-1, -1}};
+        int num = 1, i = 0, j = 0, d = 0, count = 0;
+        while(true) {
+        	if(count == n*(n+1)/2) break;
+        	
+        	if(i >= n || i < 0 || arr[i].length <= j || arr[i][j] != 0) {
+        		i -= dir[d][0];
+        		j -= dir[d][1];
+        		d++;
+        		d %= 3;
+        		i += dir[d][0];
+            	j += dir[d][1];
+        	}
+        	
+        	arr[i][j] = num++;
+
+        	i += dir[d][0];
+        	j += dir[d][1];
+        	
+        	count++;
+        }
+        
+        int[] answer = new int[num-1];
+        i = 0;
+        for (int k = 0; k < arr.length; k++) {
+			for (int k2 = 0; k2 < arr[k].length; k2++) {
+				answer[i++] = arr[k][k2];
+			}
+		}
+        
+        return answer;
+    }
+    public static void main(String[] args) {
+		new 삼각달팽이().service();
+	}
+    public void service() {
+    	System.out.println(Arrays.toString(solution(5)));
+    }
+}
