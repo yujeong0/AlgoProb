@@ -2,6 +2,7 @@ package programmers.level2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class 튜플 {
@@ -20,24 +21,24 @@ public class 튜플 {
 			list.add(arr);
 		}
     	
+    	list.sort(new Comparator<int[]>() {
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				return o1.length-o2.length;
+			}
+		});
+    	
     	List<Integer> answer = new ArrayList<>();
-    	int len = 1;
-    	while(list.size() > 0) {
-    		int[] arr;
-    		for (int i = 0; i < list.size(); i++) {
-    			arr = list.get(i);
-    			if(arr.length == len) {
-    				for (int j = 0; j < arr.length; j++) {
-						if(!answer.contains(arr[j])) {
-							answer.add(arr[j]);
-							break;
-						}
-					}
-    				list.remove(i);
-    				break;
-    			}
-    		}
-    		len++;
+    	int idx = 0;
+    	while(idx < list.size()) {
+    		int[] arr = list.get(idx);
+			for (int j = 0; j < arr.length; j++) {
+				if(!answer.contains(arr[j])) {
+					answer.add(arr[j]);
+					break;
+				}
+			}
+    		idx++;
     	}
         
     	int[] arr = new int[answer.size()];
