@@ -17,7 +17,6 @@ public class test03_v2 {
 		boolean hasAll;
 		int count;
 		
-		
 		String[][] applicants = new String[info.length][];
 		for (int i = 0; i < info.length; i++) {	// 속성별로 지원자 정보 저장
 			applicants[i] = info[i].split(" ");
