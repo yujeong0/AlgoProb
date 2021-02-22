@@ -28,11 +28,7 @@ public class 합승택시요금 {
 		}
     	
 		int answer = INFINITY;
-		answer = Math.min(answer, adjMatrix[s][a] + adjMatrix[s][b]);
-		answer = Math.min(answer, adjMatrix[s][a] + adjMatrix[a][b]);
-		answer = Math.min(answer, adjMatrix[s][b] + adjMatrix[b][a]);
     	for (int i = 1; i <= n; i++) {
-    		if(i == s) continue;
     		answer = Math.min(answer, adjMatrix[s][i] + adjMatrix[i][a] + adjMatrix[i][b]);
     	}
     	
