@@ -27,10 +27,15 @@ public class 모의SW_2112_보호필름 {
 					film[i][j] = Integer.parseInt(st.nextToken());
 				} 
 			}
-
-			solve(0, -1, 0);
-			solve(0, 0, 1);
-			solve(0, 1, 1);
+			
+			if(isSuccess(film)) MIN = 0;
+			else {
+				for (int i = 1; i < D; i++) {
+					if(i >= MIN) break;
+					R = i;
+					combi(0, 0);
+				}
+			}
 			
 			System.out.println("#" + testcase + " " + MIN);
 		} //tc
@@ -39,30 +44,55 @@ public class 모의SW_2112_보호필름 {
 	static boolean[] selected;
 	static int MIN;
 	static int[] list;
-	private static void solve(int row, int feature, int cnt) {
-		if(MIN == 0 || cnt >= MIN) return;
-		if(row < D) {
-			if(feature > -1) {
-				for (int j = 0; j < W; j++) {
-					arr[row][j] = feature;
+	static int R;
+	private static void combi(int start, int cnt) {
+		if(cnt >= MIN) return;
+		if(cnt == R) {
+			int[] arr = new int[D];
+			solve2(0, arr);
+			return;
+		}
+		
+		for(int i = start; i < D; i++) {
+			selected[i] = true;
+			combi(i+1, cnt+1);
+			selected[i] = false;
+		}
+		
+	} // combi
+	
+	
+	private static void solve2(int row, int[] arr) {
+		if(row == D) {
+			int[][] copy = copyGrid(film);
+			for (int i = 0; i < arr.length; i++) {
+				if(arr[i] > -1) {
+					for (int j = 0; j < W; j++) {
+						copy[i][j] = arr[i];
+					}
 				}
 			}
-			if(isSuccess(arr)) {
-				if(MIN > cnt) MIN = cnt;
-				return;
+			
+			if(isSuccess(copy)) {
+				if(MIN > R) MIN = R;
 			}
+			
+			return;
 		}
-		else if(row == D) return;
 		
-		list[row] = 0;
-		solve(row+1, -1, arr, cnt);
-		list[row] = 1;
-		solve(row+1, 0, copyGrid(arr), cnt+1);
-		list[row] = -1;
-		solve(row+1, 1, copyGrid(arr), cnt+1);
+		if(selected[row]) {
+			arr[row] = 0;
+			solve2(row+1, arr);
+			arr[row] = 1;
+			solve2(row+1, arr);
+		}
+		else {
+			arr[row] = -1;
+			solve2(row+1, arr);
+		}
 		
-	} //solve
-	
+	} // solve2
+
 	static boolean isSuccess(int[][] arr) {
 		for (int j = 0; j < W; j++) {
 			boolean suc = false;
