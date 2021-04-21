@@ -2,10 +2,7 @@ package 삼성합격;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
@@ -13,14 +10,13 @@ public class 모의SW_1953_탈주범검거 {
 	static int N, M, R, C, L;
 	static int[][] map;
 
-	static class Ground {
-		int x, y, cnt, d;
+	static class Pos {
+		int x, y, cnt;
 
-		public Ground(int x, int y, int cnt, int d) {
+		public Pos(int x, int y, int cnt) {
 			this.x = x;
 			this.y = y;
 			this.cnt = cnt;
-			this.d = d;
 		}
 	}
 
@@ -45,6 +41,7 @@ public class 모의SW_1953_탈주범검거 {
 				}
 			}
 
+			CNT = 0;
 			solve();
 
 			System.out.println("#" + testcase + " " + CNT);
@@ -57,128 +54,83 @@ public class 모의SW_1953_탈주범검거 {
 	static int[][] dir = new int[][] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
 
 	private static void solve() {
-		Queue<Ground> q = new LinkedList<>();
+		Queue<Pos> q = new LinkedList<>();
 
-		CNT++;
 		visited[R][C] = true;
-		switch (map[R][C]) {
-		case 0:
-			break;
-		case 1: // 4방향 다 갈 수 있다
-			for (int i = 0; i < 4; i++) {
-				q.add(new Ground(R, C, L, i));
-			}
-			break;
-		case 2:
-			q.add(new Ground(R, C, L, 0));
-			q.add(new Ground(R, C, L, 2));
-			break;
-		case 3:
-			q.add(new Ground(R, C, L, 1));
-			q.add(new Ground(R, C, L, 3));
-			break;
-		case 4:
-			q.add(new Ground(R, C, L, 2));
-			q.add(new Ground(R, C, L, 3));
-			break;
-		case 5:
-			q.add(new Ground(R, C, L, 0));
-			q.add(new Ground(R, C, L, 3));
-			break;
-		case 6:
-			q.add(new Ground(R, C, L, 0));
-			q.add(new Ground(R, C, L, 1));
-			break;
-		case 7:
-			q.add(new Ground(R, C, L, 1));
-			q.add(new Ground(R, C, L, 2));
-			break;
-		}
+		q.add(new Pos(R, C, 1));
+
 		while (!q.isEmpty()) {
-			Ground g = q.poll();
-			if (g.cnt == 1)
-				continue;
-
-			int curPipe = map[g.x][g.y];
-			List<Integer> pipes = getPipes(curPipe, g.d);
-			int nx = g.x + dir[n][0];
-			int ny = g.y + dir[n][1];
-			if (nx < 0 || nx >= N || ny < 0 || ny >= M || visited[nx][ny] || map[nx][ny] == 0
-					|| !pipes.contains(map[nx][ny]))
-				continue;
-			visited[nx][ny] = true;
+			Pos p = q.poll();
 			CNT++;
-			q.add(new Ground(nx, ny, g.cnt - 1, n));
-		}
+			if (p.cnt == L) continue;
 
-	} // while
+			int curPipe = map[p.x][p.y];
+			for (int d = 0; d < 4; d++) {
+				if(!canGo(curPipe, d)) continue;
+				int nx = p.x + dir[d][0];
+				int ny = p.y + dir[d][1];
+				if (nx < 0 || nx >= N || ny < 0 || ny >= M || visited[nx][ny] || map[nx][ny] == 0
+						|| !canGoNextPipe(map[nx][ny], d))
+					continue;
+				visited[nx][ny] = true;
+				q.add(new Pos(nx, ny, p.cnt+1));
+			}
+
+		} // while
 
 	} // solve
 
-	static List<Integer> getPipes(int curPipe, int d) {
-		List<Integer> dirs = new ArrayList<>();
+	static boolean canGo(int curPipe, int d) { // 현재 curPipe에서 d방향으로 갈 수 있는가?
 		switch (curPipe) {
-		case 1: // 4방향 다 갈 수 있다
-			for (int i = 0; i < 4; i++) {
-				dirs.add(i);
+		case 1: return true;
+		case 2:
+			if(d == 0 || d == 2) return true;
+			break;
+		case 3:
+			if(d == 1 || d == 3) return true;
+			break;
+		case 4:
+			if(d == 0 || d == 1) return true;
+			break;
+		case 5:
+			if(d == 1 || d == 2) return true;
+			break;
+		case 6:
+			if(d == 2 || d == 3) return true;
+			break;
+		case 7:
+			if(d == 0 || d == 3) return true;
+			break;
+		}
+		
+		return false;
+	} // canGo
+	
+	static boolean canGoNextPipe(int pipeNum, int d) {
+		switch (d) {
+		case 0:
+			if(pipeNum == 1 || pipeNum == 2 || pipeNum == 5 || pipeNum == 6) {
+				return true;
+			}
+			break;
+		case 1:
+			if(pipeNum == 1 || pipeNum == 3 || pipeNum == 6 || pipeNum == 7) {
+				return true;
 			}
 			break;
 		case 2:
-			dirs.add(0);
-			dirs.add(2);
+			if(pipeNum == 1 || pipeNum == 2 || pipeNum == 4 || pipeNum == 7) {
+				return true;
+			}
 			break;
 		case 3:
-			dirs.add(1);
-			dirs.add(3);
-			break;
-		case 4:
-			dirs.add(2);
-			dirs.add(3);
-			break;
-		case 5:
-			dirs.add(0);
-			dirs.add(3);
-			break;
-		case 6:
-			dirs.add(0);
-			dirs.add(1);
-			break;
-		case 7:
-			dirs.add(1);
-			dirs.add(2);
-			break;
-		}
-
-		List<Integer> list = new ArrayList<>();
-		for (int dir : dirs) {
-			switch (dir) {
-			case 0:
-				list.add(1);
-				list.add(2);
-				list.add(5);
-				list.add(6);
-				break;
-			case 1:
-				list.add(1);
-				list.add(3);
-				list.add(6);
-				list.add(7);
-				break;
-			case 2:
-				list.add(1);
-				list.add(3);
-				list.add(6);
-				list.add(7);
-				break;
-			case 3:
-				list.add(1);
-				list.add(3);
-				list.add(4);
-				list.add(5);
-				break;
+			if(pipeNum == 1 || pipeNum == 3 || pipeNum == 4 || pipeNum == 5) {
+				return true;
 			}
+			break;
 		}
 
-		return list;
+		return false;
 	} // getDirs
+	
 }
