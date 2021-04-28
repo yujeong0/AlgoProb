@@ -30,7 +30,7 @@ public class BOJ_2212_센서 {
 		Arrays.sort(diff);
 		
 		int SUM = 0;
-		for (int i = 0; i < N-K; i++) {
+		for (int i = 0; i < diff.length-(K-1); i++) {
 			SUM += diff[i];
 		}
 		
