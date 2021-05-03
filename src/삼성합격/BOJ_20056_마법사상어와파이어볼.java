@@ -17,12 +17,6 @@ public class BOJ_20056_마법사상어와파이어볼 {
 			this.s = s;
 			this.d = d;
 		}
-
-		@Override
-		public String toString() {
-			return "FireBall [r=" + r + ", c=" + c + ", m=" + m + ", s=" + s + ", d=" + d + "]";
-		}
-		
 	}
 	static int N, M, K;
 	static List<FireBall> list = new ArrayList<>();
