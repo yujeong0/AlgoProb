@@ -23,29 +23,6 @@ public class Solution3 {
         return answer;
     }
     
-    int N;
-    int distance = 0;
-    int[][] attack = { {-1, -1},{0, -1},{-1, 0}, {0,0}  };
-    int[][][] attD = {
-    		{{-1,0},{0,-1}},
-    		{{1,0},{0,-1}},
-    		{{-1,0},{0,1}},
-    		{{1,0},{0,1}},
-    };
-    
-    class Position {
-    	int x, y, cnt;
-		public Position(int x, int y, int cnt) {
-			this.x = x;
-			this.y = y;
-			this.cnt = cnt;
-		}
-		@Override
-		public String toString() {
-			return "Position [x=" + x + ", y=" + y + ", cnt=" + cnt + "]";
-		}
-		
-    }
     int solve(int x, int y, int dir, int[][] maps, int p) {
     	int sum = 0;
     	if(!isInBound(x, y)) return sum;
@@ -77,6 +54,30 @@ public class Solution3 {
     	return sum;
     }
     
+    int N;
+    int distance = 0;
+    int[][] attack = { {-1, -1},{0, -1},{-1, 0}, {0,0}  };
+    int[][][] attD = {
+    		{{-1,0},{0,-1}},
+    		{{1,0},{0,-1}},
+    		{{-1,0},{0,1}},
+    		{{1,0},{0,1}},
+    };
+    
+    class Position {
+    	int x, y, cnt;
+		public Position(int x, int y, int cnt) {
+			this.x = x;
+			this.y = y;
+			this.cnt = cnt;
+		}
+		@Override
+		public String toString() {
+			return "Position [x=" + x + ", y=" + y + ", cnt=" + cnt + "]";
+		}
+		
+    }
+
     boolean isInBound(int x, int y) {
     	if(x < 0 || x >= N || y < 0 || y >= N) return false;
     	
