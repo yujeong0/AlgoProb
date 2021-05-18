@@ -12,11 +12,6 @@ public class BOJ_20055_컨베이어벨트위의로봇 {
 			this.x = x;
 			this.isRobot = isRobot;
 		}
-		@Override
-		public String toString() {
-			return "Block [x=" + x + ", isRobot=" + isRobot + "]";
-		}
-		
 	}
 	static int N, K;
 	static Block[] A;
