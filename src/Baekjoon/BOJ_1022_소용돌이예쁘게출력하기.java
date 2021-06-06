@@ -20,9 +20,7 @@ public class BOJ_1022_소용돌이예쁘게출력하기 {
 	
 	void makeArr(int r1, int c1, int r2, int c2) {
 		int[][] dir = new int[][] { {0, 1},{-1, 0},{0, -1},{1, 0} };
-		int r = 0, c = 0;
-		int n = 1, cnt = 2;
-		int number = 1, d = 0;
+		int r = 0, c = 0, n = 1, cnt = 2, number = 1, d = 0;
 		if(r1 <= r && r <= r2 && c1 <= c && c <= c2)
 			grid[r-r1][c-c1] = number;
 		
