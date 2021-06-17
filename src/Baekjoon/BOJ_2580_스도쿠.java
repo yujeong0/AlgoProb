@@ -22,64 +22,41 @@ public class BOJ_2580_스도쿠 {
 		}
 		
 		if(list.size() > 0)
-			new BOJ_2580_스도쿠().solve(0);
-		
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if(j < 8) System.out.print(grid[i][j] + " ");
-				else  System.out.print(grid[i][j]);
-			}
-			if(i < 8) System.out.println();
-		}
+			solve(0);
 		
 	} // main
 	
-	static boolean isEnd = false;
-	void solve(int idx) {
+	static void solve(int idx) {
 		if(idx == list.size()) {
-			isEnd = true;
-			return;
+			for (int i = 0; i < 9; i++) {
+				for (int j = 0; j < 9; j++) {
+					System.out.print(grid[i][j] + " ");
+				}
+				System.out.println();
+			}
+			System.exit(0);
 		}
 		int i = list.get(idx)[0], j = list.get(idx)[1];
 				
 		for (int num = 1; num <= 9; num++) {
-			// 1. 가로
-			if(!isSuccess(grid[i], num)) continue;
-			// 2. 세로
-			int[] arr = new int[9];
-			for (int k = 0; k < 9; k++) {
-				arr[k] = grid[k][j];
-			}
-			if(!isSuccess(arr, num)) continue;
-			// 3. 사각형
-			if(!isSuccessSquare(i, j, num)) continue;
+			if(!isSuccess(i, j, num)) continue;
 			
 			grid[i][j] = num;
-			
 			solve(idx+1);
-			
-			if(isEnd) break;
 			grid[i][j] = 0;
 		}
 		
 	} // solve
 	
-	boolean isSuccess(int[] arr, int num) {
-		for (int i = 0; i < arr.length; i++) {
-			if(arr[i] == num) return false;
+	static boolean isSuccess(int r, int c, int num) {
+		// 가로 세로
+		for (int i = 0; i < 9; i++) {
+			if(grid[i][c] == num || grid[r][i] == num) return false;
 		}
-		return true;
-	}
-	
-	boolean isSuccessSquare(int r, int c, int num) {
-		if(r < 3) r = 0;
-		else if(r < 6) r = 3;
-		else r = 6;
 		
-		if(c < 3) c = 0;
-		else if(c < 6) c = 3;
-		else c = 6;
-		
+		// 대각선
+		r = (r/3) * 3;
+		c = (c/3) * 3;
 		for (int i = r; i < r+3; i++) {
 			for (int j = c; j < c+3; j++) {
 				if(grid[i][j] == num) return false;
