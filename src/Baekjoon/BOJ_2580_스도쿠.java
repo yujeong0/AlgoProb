@@ -54,7 +54,7 @@ public class BOJ_2580_스도쿠 {
 			if(grid[i][c] == num || grid[r][i] == num) return false;
 		}
 		
-		// 대각선
+		// 사각형
 		r = (r/3) * 3;
 		c = (c/3) * 3;
 		for (int i = r; i < r+3; i++) {
