@@ -1,6 +1,36 @@
 package data_structure;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class _01_Stack_arr {
+	public static void main(String[] args) throws Exception {
+		new _01_Stack_arr().solve();
+	}
+	private void solve() throws Exception {
+		Stack<Integer> stack = new Stack<Integer>(5);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		while(true) {
+			int a = Integer.parseInt(br.readLine());
+			
+			switch(a) {
+			case 1: {
+				int b = Integer.parseInt(br.readLine());
+				stack.push(b);
+				break;
+			}
+			case 2: {
+				System.out.println(stack.pop());
+				break;
+			}
+			case 3: {
+				System.out.println(stack.peek());
+				break;
+			}
+			}
+		}
+	
+	}
 	public class Stack<T> {
 		T[] stack;
 		int top;
@@ -15,6 +45,7 @@ public class _01_Stack_arr {
 		public void push(T element) {
 			if(isFull()) {
 				System.out.println("stack Full");
+				return;
 			}
 			stack[++top] = element;
 		}
